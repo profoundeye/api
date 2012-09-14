@@ -465,7 +465,7 @@ class blog extends top
 		$d['time_y']  = date('Y.m',$d['time']);
 		$d['time_d']  = date('d',$d['time']);
 		$d['time']  = ybtime(array('time'=>$d['time']));
-		$rs         = split_attribute($d['body']); 
+		$rs         = split_attribute(converPic($d['body'])); 
 		$d['attr']  = $rs['attr'];
 		$d['repto'] = $rs['repto'];
 		if(!empty($d['repto'])){
@@ -482,7 +482,6 @@ class blog extends top
 		if($d['body'] == false){
 			$d['body'] = '';
 		}
-		
 		$d['more'] = (utf8_strlen($rs['body']) > 500) ? 1: 0;
 		//处理音乐和视频
 		if($d['type'] == 2 || $d['type'] == 4){
