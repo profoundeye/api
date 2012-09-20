@@ -249,7 +249,7 @@ class blog extends top
 	/*首页获取评论*/
 	function reply(){
 		$bid = $this->spArgs('bid');
-		$result = spClass('db_replay')->spLinker()->spPager($this->spArgs('page',1),$this->spArgs('limit',10))->findAll(array('bid'=>$bid),'time desc','');
+		$result = spClass('db_replay')->spLinker()->spPager($this->spArgs('page',1),$this->spArgs('limit',20))->findAll(array('bid'=>$bid),'time desc','');
 		$pager = '';
 		$data  = array();
 		$data['page'] = spClass('db_replay')->spPager()->getPager();
