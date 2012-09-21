@@ -358,7 +358,14 @@ class user extends top
     
     /*del user attach*/
     public function delattach(){
-        if(spClass('db_attach')->delBy($this->spArgs('id'),$this->uid)){
+    	$uid = $this->uid;
+    	if($_SESSION['admin']==1){
+    		//如果是管理员，变更附件uid
+    		$uid = spClass('db_attach')->find(array('id'=>$this->spArgs('id')));
+    		$uid=$uid['uid'];
+    	}
+		
+        if(spClass('db_attach')->delBy($this->spArgs('id'),$uid)){
             $this->api_success(true);
         }else{
             $this->api_error('删除失败,无权限或不存在该档案');
