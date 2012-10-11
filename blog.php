@@ -287,7 +287,7 @@ class blog extends top
 				}else{
 					$d['repto'] = null;
 				}
-				$d['body'] = strip_tags($rs['body']);
+				$d['body'] = strip_tags(converPic($rs['body']));
 			}
 			$this->api_success($data);
 		}else{
