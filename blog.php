@@ -278,7 +278,7 @@ class blog extends top
 				$d['tag'] =  ($d['tag'] != '') ? explode(',',$d['tag']) : '';
 				
 				$d['time']  = ybtime(array('time'=>$d['time']));
-				$rs         = split_attribute($d['body']); 
+				$rs         = split_attribute(converPic($d['body'])); 
 				$d['attr']  = $rs['attr'];
 				$d['repto'] = $rs['repto'];
 				if(!empty($d['repto'])){
@@ -287,7 +287,8 @@ class blog extends top
 				}else{
 					$d['repto'] = null;
 				}
-				$d['body'] = strip_tags(converPic($rs['body']));
+				
+				$d['body'] = strip_tags($rs['body']);
 			}
 			$this->api_success($data);
 		}else{
