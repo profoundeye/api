@@ -49,6 +49,8 @@ class blog extends top
 			$this->api_success("");
 		}
 	}
+
+
 	
 	
 	//获取单个博客
