@@ -26,10 +26,17 @@ class blog extends top
 
 
 		//LEFT JOIN `".DBPRE."follow` AS f ON ( b.uid = f.touid and f.uid = '$uid' )
-		$sql = "SELECT b. * , k.id AS likeid  ,m.username,m.domain
+		if($this->spArgs('pass')==1){
+			$sql = "SELECT b. * , k.id AS likeid  ,m.username,m.domain
 				FROM `".DBPRE."blog` AS b LEFT JOIN `".DBPRE."likes` AS k ON ( b.bid = k.bid AND k.uid ='$this->uid' )
 				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where 1 = 1 $cond ORDER BY b.bid desc";
-			
+		}
+		else{
+			$sql = "SELECT b. * , k.id AS likeid  ,m.username,m.domain
+				FROM `".DBPRE."blog` AS b LEFT JOIN `".DBPRE."likes` AS k ON ( b.bid = k.bid AND k.uid ='$this->uid' )
+				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where b.open = 1 $cond ORDER BY b.bid desc";
+		}
+		
 		$data['blog'] = spClass('db_blog')->spPager($this->spArgs('page',1),$pageLimit)->findSql($sql);
 		$data['page'] = spClass('db_blog')->spPager()->getPager();
 		unset($data['page']['all_pages']);
