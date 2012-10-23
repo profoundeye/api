@@ -28,7 +28,7 @@ class blog extends top
 		//LEFT JOIN `".DBPRE."follow` AS f ON ( b.uid = f.touid and f.uid = '$uid' )
 		$sql = "SELECT b. * , k.id AS likeid  ,m.username,m.domain
 				FROM `".DBPRE."blog` AS b LEFT JOIN `".DBPRE."likes` AS k ON ( b.bid = k.bid AND k.uid ='$this->uid' )
-				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where b.open = 1 $cond ORDER BY b.bid desc";
+				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where 1 = 1 $cond ORDER BY b.bid desc";
 			
 		$data['blog'] = spClass('db_blog')->spPager($this->spArgs('page',1),$pageLimit)->findSql($sql);
 		$data['page'] = spClass('db_blog')->spPager()->getPager();
@@ -269,7 +269,6 @@ class blog extends top
 	//后端改完了，就差添加收藏和取消收藏所记录的tid了，tid采用system tag 表的id来统一
 	function tag(){
 		$data = spClass('db_tag_system')->findTagByAttr($this->spArgs(),$this->uid);
-	
 		if(is_array($data['blog'])){
 			foreach($data['blog'] as &$d){
 				$d['h_url'] =  goUserHome(array('uid'=>$d['uid'], 'domain'=>$d['domain']));
