@@ -322,6 +322,7 @@ class blog extends top
 			$this->api_error('需要登陆才能继续操作');
 		}	
 		$err = spClass('db_replay')->createReplay($this->spArgs());
+		spClass('db_source')->route("comment",array('bid'=>$this->spArgs('bid'),'repuid'=>$this->spArgs('repuid')));
 		if($err['err'] == ''){
 			$this->api_success(true);
 		}else{
