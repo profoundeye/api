@@ -29,12 +29,12 @@ class blog extends top
 		if($this->spArgs('pass')==1){
 			$sql = "SELECT b. * , k.id AS likeid  ,m.username,m.domain
 				FROM `".DBPRE."blog` AS b LEFT JOIN `".DBPRE."likes` AS k ON ( b.bid = k.bid AND k.uid ='$this->uid' )
-				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where 1 = 1 $cond ORDER BY b.bid desc";
+				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where type=3 and 1 = 1 $cond ORDER BY b.bid desc";
 		}
 		else{
 			$sql = "SELECT b. * , k.id AS likeid  ,m.username,m.domain
 				FROM `".DBPRE."blog` AS b LEFT JOIN `".DBPRE."likes` AS k ON ( b.bid = k.bid AND k.uid ='$this->uid' )
-				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where b.open = 1 $cond ORDER BY b.bid desc";
+				LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where type=3 and b.open = 1 $cond ORDER BY b.bid desc";
 		}
 		
 		$data['blog'] = spClass('db_blog')->spPager($this->spArgs('page',1),$pageLimit)->findSql($sql);
