@@ -259,6 +259,8 @@ class blog extends top
 	function reply(){
 		$bid = $this->spArgs('bid');
 		$result = spClass('db_replay')->spLinker()->spPager($this->spArgs('page',1),$this->spArgs('limit',20))->findAll(array('bid'=>$bid),'time desc','');
+		//$result = spClass('db_replay')->spPager($this->spArgs('page',1),$this->spArgs('limit',20))->findAll(array('bid'=>$bid),'time desc','');
+			//print_r($result);exit;
 		$pager = '';
 		$data  = array();
 		$data['page'] = spClass('db_replay')->spPager()->getPager();
@@ -272,6 +274,7 @@ class blog extends top
 			$d['rep_flag'] = ( $this->uid != $d['uid'] && $this->uid != '') ? 1:0;
 		}
 		$data['body'] = $result;
+		//print_r($data);exit;
 		$this->api_success($data);
 	}
 	
@@ -321,13 +324,23 @@ class blog extends top
 		if($this->uid ==0){
 			$this->api_error('需要登陆才能继续操作');
 		}	
+		
 		$err = spClass('db_replay')->createReplay($this->spArgs());
+		//bid为负，不进行校验  
+		$bid = $this->spArgs('bid');
+		if($bid<0){
+			//发送微博评论
+			$data = array("content"=>strip_tags(strreplaces($this->spArgs("inputs"))),'uid'=>$_SESSION['uid'],'bid'=>$bid*-1,"done"=>0);
+			$rs = spClass("db_weibo")->create($data);			
+		}
 		spClass('db_source')->route("comment",array('bid'=>$this->spArgs('bid'),'repuid'=>$this->spArgs('repuid')));
 		if($err['err'] == ''){
 			$this->api_success(true);
 		}else{
+			
 			$this->api_error($err['err']);
 		}
+		
 	}
 	
 	/*删除回复*/
