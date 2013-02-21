@@ -331,7 +331,8 @@ class blog extends top
 		if($bid<0){
 			//发送微博评论
 			$data = array("content"=>strip_tags(strreplaces($this->spArgs("inputs"))),'uid'=>$_SESSION['uid'],'bid'=>$bid*-1,"done"=>0);
-			$rs = spClass("db_weibo")->create($data);			
+			$rs = spClass("db_weibo")->create($data);	
+			spClass("db_mybuy")->updateReplay($bid);		
 		}
 		spClass('db_source')->route("comment",array('bid'=>$this->spArgs('bid'),'repuid'=>$this->spArgs('repuid')));
 		if($err['err'] == ''){
