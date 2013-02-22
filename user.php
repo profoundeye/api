@@ -50,7 +50,7 @@ class user extends top
 			if(in_array($this->spArgs('domain'),$arr))  {$this->api_error('该个性域名被保留或限制');} 
 		}
 
-		if(utf8_strlen($this->spArgs('niname')) < 2 || utf8_strlen($this->spArgs('niname')) > 10){$this->api_error('昵称最短2位最长10位'); }
+		if(utf8_strlen($this->spArgs('niname')) < 2 || utf8_strlen($this->spArgs('niname')) > 15){$this->api_error('昵称最短2位最长15位'); }
 		$niname = spClass('db_member')->find(array('username'=>$this->spArgs('niname')),'','uid,username');
 		if(is_array($niname) && $niname['uid'] != $this->uid){$this->api_error('该昵称已被使用'); } //判断昵称是否被使用
 		if(utf8_strlen($this->spArgs('domain')) < 4 || utf8_strlen($this->spArgs('domain')) > 15){ $this->api_error('个性域名最短4位最长15位'); }

@@ -41,7 +41,7 @@ class login extends top
 		if($this->spArgs('email') == '' || $this->spArgs('password') == ''|| $this->spArgs('username') == '')  return $this->api_error('用户名、密码、昵称不能为空'); 
 		if(strlen($this->spArgs('email')) < 5 || strlen($this->spArgs('email')) > 30) return $this->api_error('邮箱必须大于5小于30个字符'); 
 		if(!validateEmail($this->spArgs('email'))) return $this->api_error('邮箱格式不符合规范'); 
-		if(strlen($this->spArgs('username')) < 2 || strlen($this->spArgs('username')) > 12) return $this->api_error('昵称最短为2个字符最长为12个字符');
+		if(strlen($this->spArgs('username')) < 2 || strlen($this->spArgs('username')) > 15) return $this->api_error('昵称最短为2个字符最长为15个字符');
 		if(strlen($this->spArgs('password')) < 6) return $this->api_error('密码最少6位');
 		$keep =  $this->yb['keep_email'];
 		if($keep != ''){
